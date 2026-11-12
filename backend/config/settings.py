@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'catalog',
     'orders',
     'chain',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
