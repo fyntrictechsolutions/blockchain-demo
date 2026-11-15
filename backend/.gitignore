@@ -25,6 +25,7 @@ db.sqlite3
 db.sqlite3-journal
 *.log
 media/
+batch_certificates/
 staticfiles/
  
 # --- Editors / OS ---
