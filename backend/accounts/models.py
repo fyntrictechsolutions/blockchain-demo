@@ -4,7 +4,25 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+
+    class Role(models.TextChoices):
+        MANUFACTURER = 'MANUFACTURER', 'Manufacturer'
+        BUYER = 'BUYER', 'Buyer'
+        ADMIN = 'ADMIN', 'Admin'
+
+    role = models.CharField(
+        max_length=20,
+        choices=Role.choices,
+        default=Role.BUYER
+    )
+
+    company = models.ForeignKey(
+        'Company',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='users'
+    )
 
 
 class Company(models.Model):
