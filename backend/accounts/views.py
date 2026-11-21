@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from .models import User
@@ -12,6 +12,7 @@ from .serializers import (
     RegisterSerializer,
     ForgotPasswordSerializer,
     ResetPasswordSerializer,
+    ChangePasswordSerializer,
 )
 
 
@@ -56,3 +57,14 @@ class ResetPasswordView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': 'Password changed. You can log in now.'})
+
+
+class ChangePasswordView(generics.GenericAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'detail': 'Password changed.'})
