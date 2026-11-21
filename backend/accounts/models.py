@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-
+    email = models.EmailField(unique=True)
     class Role(models.TextChoices):
         MANUFACTURER = 'MANUFACTURER', 'Manufacturer'
         BUYER = 'BUYER', 'Buyer'
